@@ -7,10 +7,10 @@ let rec vvod acc =
     | s ->
         match Int32.TryParse(s) with
         | true, num -> (if num<10 && num>0 then vvod (input :: acc)
-            else printfn "Некорректный ввод. Пожалуйста, введите число или 'net'."
+            else printfn "Некорректный ввод. Пожалуйста, введите цифру или 'net'."
                  vvod acc)
         | false, _ ->
-            printfn "Некорректный ввод. Пожалуйста, введите число или 'net'."
+            printfn "Некорректный ввод. Пожалуйста, введите цифру или 'net'."
             vvod acc
 
 let rim x =
