@@ -1,0 +1,22 @@
+open System
+let rec vvod acc =
+    printf "Введите цифру (или 'net' для выхода): "
+    let input = Console.ReadLine()
+    match input with
+    | "net" -> List.rev acc
+    | s ->
+        match Int32.TryParse(s) with
+        | true, num -> (if num<10 && num>=0 then vvod (input :: acc)
+            else printfn "Некорректный ввод. Пожалуйста, введите число или 'net'."
+                 vvod acc)
+        | false, _ ->
+            printfn "Некорректный ввод. Пожалуйста, введите число или 'net'."
+            vvod acc
+
+let chisl x = List.fold (fun acc el -> acc + el) "" x
+    
+let list1 = vvod []
+let chislo = chisl list1
+    
+printfn "Список: %A" list1
+printfn "Число: %A" chislo
