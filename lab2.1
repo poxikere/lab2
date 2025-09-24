@@ -1,14 +1,14 @@
 open System
 
 let random = Random()
-let rec vvodRandom acc =
+let rec vvodRandom() =
     printf "Сколько цифр сгенерировать?"
     let input1 = Console.ReadLine()
     match Int32.TryParse(input1) with
     | true, num -> List.init num (fun _ -> random.Next(1, 10).ToString())
     | false, _ ->
         printfn "Некорректный ввод"
-        vvodRandom acc
+        vvodRandom()
 
 let rec vvodSam acc =
     printf "Введите цифру (или 'net' для выхода): "
