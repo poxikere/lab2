@@ -17,22 +17,22 @@ let rec vvodSam acc =
     | "net" -> List.rev acc
     | s ->
         match Int32.TryParse(s) with
-        | true, num -> (if num<10 && num>0 then vvodSam (input :: acc)
+        | true, num -> (if num<10 && num>0 then vvodSam (s :: acc)
             else printfn "Некорректный ввод. Пожалуйста, введите цифру или 'net'."
                  vvodSam acc)
         | false, _ ->
             printfn "Некорректный ввод. Пожалуйста, введите цифру или 'net'."
             vvodSam acc
-
-let rec vvod acc =
+            
+let rec vvod() =
     printf "Ввеси рандомом (r) или вручную (s)?"
     let input = Console.ReadLine()
     match input with
-    | "s" -> vvodSam
-    | "r" -> vvodRandom
+    | "s" -> vvodSam []
+    | "r" -> vvodRandom()
     | _ -> 
         printfn "Некорректный ввод"
-        vvod acc
+        vvod()
 
 let rim x =
     match x with
@@ -50,5 +50,6 @@ let smena xx =
     xx |> List.map (rim)
 
 let list1 = vvod()
-let list2 = smena list1[]
+let list2 = smena list1
+printfn "Арабские цифры: %A" list1
 printfn "Римские цифры: %A" list2
