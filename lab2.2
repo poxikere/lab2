@@ -1,21 +1,42 @@
 open System
-let rec vvod acc =
+
+let random = Random()
+let rec vvodRandom() =
+    printf "Сколько цифр сгенерировать?"
+    let input = Console.ReadLine()
+    match Int32.TryParse(input) with
+    | true, num -> List.init num (fun _ -> random.Next(1, 10).ToString())
+    | false, _ ->
+        printfn "Некорректный ввод"
+        vvodRandom()
+
+let rec vvodSam acc =
     printf "Введите цифру (или 'net' для выхода): "
     let input = Console.ReadLine()
     match input with
     | "net" -> List.rev acc
     | s ->
         match Int32.TryParse(s) with
-        | true, num -> (if num<10 && num>=0 then vvod (input :: acc)
+        | true, num -> (if num<10 && num>=0 then vvodSam (s :: acc)
             else printfn "Некорректный ввод. Пожалуйста, введите цифру или 'net'."
-                 vvod acc)
+                 vvodSam acc)
         | false, _ ->
             printfn "Некорректный ввод. Пожалуйста, введите цифру или 'net'."
-            vvod acc
+            vvodSam acc
+
+let rec vvod() =
+    printf "Ввеси рандомом (r) или вручную (s)?"
+    let input = Console.ReadLine()
+    match input with
+    | "s" -> vvodSam []
+    | "r" -> vvodRandom()
+    | _ -> 
+        printfn "Некорректный ввод"
+        vvod()
 
 let chisl x = List.fold (fun acc el -> acc + el) "" x
     
-let list1 = vvod []
+let list1 = vvod()
 let chislo = chisl list1
     
 printfn "Список: %A" list1
